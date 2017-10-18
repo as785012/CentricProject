@@ -4,11 +4,28 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>User Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+  
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="input-group">
+                @using (Html.BeginForm("Index", "userDetails", FormMethod.Get))
+                {
+                    <p>
+                    Search by name: @Html.TextBox("searchString", null, new {@class="form-control"})
+                        <span>
+                            <input class="btn btn-primary btn-sm" type="submit" value="Search" />
+                        </span>
+                    </p>
+                }       
+        </div>
+    </div>
+</div>
+
 <table class="table">
     <tr>
         <th>
