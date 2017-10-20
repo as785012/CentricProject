@@ -15,7 +15,7 @@ namespace CentricProject.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Centric is dedicated to providing unmatched experiences. We are guided by our commitment to do what's right for you.";
 
             return View();
         }
