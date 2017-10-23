@@ -17,10 +17,17 @@ namespace CentricProject.Controllers
         private centricContext db = new centricContext();
 
         // GET: userDetails
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
+            
             if (User.Identity.IsAuthenticated)
             {
+                var testUsers = from u in db.userDetails select u;
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    testUsers = testUsers.Where(u => u.firstName.Contains(searchString) || u.lastName.Contains(searchString));
+                    return View(testUsers.ToList());
+                }
                 return View(db.userDetails.ToList());
             }
             else
