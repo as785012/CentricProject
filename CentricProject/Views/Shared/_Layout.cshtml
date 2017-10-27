@@ -11,6 +11,9 @@
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
+            <a href="@Url.Action("Index", "Home")" class="navbar-brand">
+                <img src="~/Content/centric_logo_color.png" title="logo" alt="Centric Logo" style="height: 20px" />
+            </a>
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
@@ -34,7 +37,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Centric Consulting - OHIO University - MIS 4200_Team 16</p>
+            <p>&copy; @DateTime.Now.Year - Centric Consulting - OHIO University - MIS 4200 Team 16</p>
         </footer>
     </div>
 
