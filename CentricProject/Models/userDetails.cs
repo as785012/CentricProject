@@ -28,15 +28,18 @@ namespace CentricProject.Models
         [Phone]
         public string phoneNumber { get; set; }
 
-        [Display(Name = "Office")]
+        [Display(Name = "Business Unit")]
         public string office { get; set; }
 
-        [Display(Name = "Role")]
+        [Display(Name = "Skill areas")]
         public string currentRole { get; set; }
 
-        [Display(Name = "Hire Date")]
+        [Display(Name = "Centric Anniversary")]
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
-        public DateTime hireDate { get; set; }
+        public DateTime anniversary { get; set; }
+
+        [Display(Name = "Number of years with Centric")]
+        public int yearsWithCentric { get; set; }
 
         public string photo { get; set; }
 
