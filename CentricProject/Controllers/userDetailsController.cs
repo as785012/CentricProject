@@ -63,7 +63,7 @@ namespace CentricProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,email,firstName,lastName,phoneNumber,office,currentRole,hireDate,photo")] userDetails userDetails)
+        public ActionResult Create([Bind(Include = "ID,email,firstName,lastName,phoneNumber,office,currentRole,anniversary, yearsWithCentric,photo")] userDetails userDetails)
         {
             if (ModelState.IsValid)
             {
