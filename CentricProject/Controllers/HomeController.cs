@@ -22,7 +22,7 @@ namespace CentricProject.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Contact us for your next engagement or for the best career move you'll ever make.";
 
             return View();
         }

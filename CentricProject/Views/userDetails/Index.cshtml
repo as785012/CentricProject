@@ -47,7 +47,10 @@
             @Html.DisplayNameFor(model => model.currentRole)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.hireDate)
+            @Html.DisplayNameFor(model => model.anniversary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.yearsWithCentric)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.photo)
@@ -76,15 +79,16 @@
             @Html.DisplayFor(modelItem => item.currentRole)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.hireDate)
+            @Html.DisplayFor(modelItem => item.anniversary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.yearsWithCentric)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.photo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) 
         </td>
     </tr>
 }
