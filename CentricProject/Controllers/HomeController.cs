@@ -15,7 +15,7 @@ namespace CentricProject.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Centric is dedicated to providing unmatched experiences. We are guided by our commitment to do what's right for you.";
+            ViewBag.Message = "The recognition application is an internal system that has capabilities to recognize excellent work of Centric’s employees based on the Core Values. ";
 
             return View();
         }
