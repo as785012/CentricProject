@@ -19,6 +19,8 @@ namespace CentricProject.Controllers
         // GET: recognitions
         public ActionResult Index()
         {
+            ViewBag.recognizer = new SelectList(db.userDetails, "ID", "fullName");
+            ViewBag.recognizee = new SelectList(db.userDetails, "ID", "fullName");
             return View(db.recognition.ToList());
         }
 
