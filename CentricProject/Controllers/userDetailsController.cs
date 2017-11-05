@@ -55,6 +55,7 @@ namespace CentricProject.Controllers
         // GET: userDetails/Create
         public ActionResult Create()
         {
+            
             return View();
         }
 

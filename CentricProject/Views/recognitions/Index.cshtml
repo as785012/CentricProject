@@ -1,0 +1,57 @@
+﻿@model IEnumerable<CentricProject.Models.recognition>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.recognizer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.recognizee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.recognitionCoreValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.recognizer)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.recognizee)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.recognitionCoreValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.recognitionID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.recognitionID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.recognitionID })
+        </td>
+    </tr>
+}
+
+</table>
