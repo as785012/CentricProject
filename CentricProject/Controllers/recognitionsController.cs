@@ -19,8 +19,15 @@ namespace CentricProject.Controllers
         // GET: recognitions
         public ActionResult Index()
         {
-            ViewBag.recognizer = new SelectList(db.userDetails, "ID", "fullName");
-            ViewBag.recognizee = new SelectList(db.userDetails, "ID", "fullName");
+            string strRecognizer = new SelectList(db.userDetails, "ID", "fullName").ToString();
+            string strRecognizee = new SelectList(db.userDetails, "ID", "fullName").ToString();
+
+            System.Web.UI.WebControls.Label lblRecognizer = new System.Web.UI.WebControls.Label();
+            lblRecognizer.Text = strRecognizer;
+
+            System.Web.UI.WebControls.Label lblRecognizee = new System.Web.UI.WebControls.Label();
+            lblRecognizee.Text = strRecognizee;
+
             return View(db.recognition.ToList());
         }
 
@@ -42,9 +49,17 @@ namespace CentricProject.Controllers
         // GET: recognitions/Create
         public ActionResult Create()
         {
-            ViewBag.recognizer = new SelectList(db.userDetails, "ID", "fullName");
-            ViewBag.recognizee = new SelectList(db.userDetails, "ID", "fullName");
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.recognizer = new SelectList(db.userDetails, "ID", "fullName");
+                ViewBag.recognizee = new SelectList(db.userDetails, "ID", "fullName");
+                return View();
+            }else
+            {
+                return View("NotAuthenticated");
+            }
+            
+            
         }
 
         // POST: recognitions/Create
@@ -54,6 +69,7 @@ namespace CentricProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "recognitionID,recognizer,recognizee,recognitionCoreValue,description,dateTime")] recognition recognition)
         {
+
             if (ModelState.IsValid)
             {
                 Guid memberID;
