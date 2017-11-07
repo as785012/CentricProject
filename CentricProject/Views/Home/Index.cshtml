@@ -5,7 +5,7 @@
 <div class="jumbotron">
     <h1>Centric Employee Recognition Tool</h1>
     <p class="lead">Recognize other employees based on the companies core values or view other recognitions that have been made</p>
-    <p><a href="" class="btn btn-primary btn-lg">New Recognition &raquo;</a></p>
+    <p>@Html.ActionLink("New Recognition!", "Create", "recognitions", null, new { @class = "btn btn-primary btn-lg" })</p>
 </div>
 
 <div class="row">
@@ -14,16 +14,16 @@
         <p>
             View the recognitions that your fellow employees have made. 
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">View Recognitions &raquo;</a></p>
+        <p>@Html.ActionLink("View Recognitions", "Index", "recognitions", null, new { @class = "btn btn-default"})</p>
     </div>
     <div class="col-md-4">
         <h2>View Employees</h2>
         <p>Look up other employees, see their profiles and how to contact them.</p>
-        <p><a class="btn btn-default" href="">Employees &raquo;</a></p>
+        <p>@Html.ActionLink("View users", "Index", "userDetails", null, new { @class = "btn btn-default" })</p>
     </div>
     <div class="col-md-4">
         <h2>Core Values</h2>
         <p>Learn about the core values of the firm and what it means to recognize another employee</p>
-        <p><a class="btn btn-default" href="">Core Values &raquo;</a></p>
+        <p>@Html.ActionLink("Core Values", "About", "Home", null, new { @class = "btn btn-default" })</p>
     </div>
 </div>

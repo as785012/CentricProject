@@ -55,6 +55,7 @@ namespace CentricProject.Controllers
         // GET: userDetails/Create
         public ActionResult Create()
         {
+            
             return View();
         }
 
@@ -100,7 +101,18 @@ namespace CentricProject.Controllers
             {
                 return HttpNotFound();
             }
-            return View(userDetails);
+            Guid memberID;
+            Guid.TryParse(User.Identity.GetUserId(), out memberID);
+            if (userDetails.ID == memberID)
+            {
+                return View(userDetails);
+            }
+            else
+            {
+                return View("NotAuthenticated");
+            }
+
+            
         }
 
         // POST: userDetails/Edit/5
@@ -108,10 +120,13 @@ namespace CentricProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,email,firstName,lastName,phoneNumber,office,currentRole,hireDate,photo")] userDetails userDetails)
+        public ActionResult Edit([Bind(Include = "ID,email,firstName,lastName,phoneNumber,office,currentRole,anniversary,photo")] userDetails userDetails)
         {
             if (ModelState.IsValid)
             {
+               
+
+
                 db.Entry(userDetails).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -131,7 +146,17 @@ namespace CentricProject.Controllers
             {
                 return HttpNotFound();
             }
-            return View(userDetails);
+            Guid memberID;
+            Guid.TryParse(User.Identity.GetUserId(), out memberID);
+            if (userDetails.ID == memberID)
+            {
+                return View(userDetails);
+            }
+            else
+            {
+                return View("NotAuthenticated");
+            }
+            
         }
 
         // POST: userDetails/Delete/5

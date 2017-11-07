@@ -43,5 +43,7 @@ namespace CentricProject.Models
 
         public string photo { get; set; }
 
+        public string fullName { get { return lastName + ", " + firstName; } }
+
     }
 }

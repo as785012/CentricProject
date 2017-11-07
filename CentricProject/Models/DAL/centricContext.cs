@@ -17,6 +17,8 @@ namespace CentricProject.Models.DAL
 
         public DbSet<userDetails> userDetails { get; set; }
 
+        public DbSet<recognition> recognition { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();

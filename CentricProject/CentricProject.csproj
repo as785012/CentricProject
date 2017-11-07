@@ -192,6 +192,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\recognitionsController.cs" />
     <Compile Include="Controllers\userDetailsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -200,6 +201,7 @@
     <Compile Include="Models\DAL\centricContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\recognition.cs" />
     <Compile Include="Models\userDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -210,6 +212,7 @@
     <Content Include="Content\normalBootstrap.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\coreValues.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -273,6 +276,12 @@
     <Content Include="Views\userDetails\Index.cshtml" />
     <Content Include="Views\userDetails\DuplicateUser.cshtml" />
     <Content Include="Views\userDetails\NotAuthenticated.cshtml" />
+    <Content Include="Views\recognitions\Create.cshtml" />
+    <Content Include="Views\recognitions\Delete.cshtml" />
+    <Content Include="Views\recognitions\Details.cshtml" />
+    <Content Include="Views\recognitions\Edit.cshtml" />
+    <Content Include="Views\recognitions\Index.cshtml" />
+    <Content Include="Views\recognitions\NotAuthenticated.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
