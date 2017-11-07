@@ -64,6 +64,8 @@ namespace CentricProject.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+           
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -101,6 +103,8 @@ namespace CentricProject.Controllers
 
         //
         // GET: /Manage/AddPhoneNumber
+
+
         public ActionResult AddPhoneNumber()
         {
             return View();
