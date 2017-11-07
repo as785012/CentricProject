@@ -19,15 +19,7 @@ namespace CentricProject.Controllers
         // GET: recognitions
         public ActionResult Index()
         {
-            string strRecognizer = new SelectList(db.userDetails, "ID", "fullName").ToString();
-            string strRecognizee = new SelectList(db.userDetails, "ID", "fullName").ToString();
-
-            System.Web.UI.WebControls.Label lblRecognizer = new System.Web.UI.WebControls.Label();
-            lblRecognizer.Text = strRecognizer;
-
-            System.Web.UI.WebControls.Label lblRecognizee = new System.Web.UI.WebControls.Label();
-            lblRecognizee.Text = strRecognizee;
-
+            var fullNames = db.recognition.Include(r => r.userDetails);
             return View(db.recognition.ToList());
         }
 
@@ -95,6 +87,8 @@ namespace CentricProject.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.recognizer = new SelectList(db.userDetails, "ID", "fullName");
+            ViewBag.recognizee = new SelectList(db.userDetails, "ID", "fullName");
             return View(recognition);
         }
 
