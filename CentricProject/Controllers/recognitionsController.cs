@@ -19,9 +19,8 @@ namespace CentricProject.Controllers
         // GET: recognitions
         public ActionResult Index()
         {
-            ViewBag.recognizer = new SelectList(db.userDetails, "ID", "fullName");
-            ViewBag.recognizee = new SelectList(db.userDetails, "ID", "fullName");
-            return View(db.recognition.ToList());
+            var recognition = db.recognition.Include(r => r.Giver).Include(r => r.userDetails);
+            return View(recognition.ToList());
         }
 
         // GET: recognitions/Details/5
@@ -42,9 +41,16 @@ namespace CentricProject.Controllers
         // GET: recognitions/Create
         public ActionResult Create()
         {
-            ViewBag.recognizer = new SelectList(db.userDetails, "ID", "fullName");
-            ViewBag.recognizee = new SelectList(db.userDetails, "ID", "fullName");
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.recognizer = new SelectList(db.userDetails, "ID", "fullName");
+                ViewBag.recognizee = new SelectList(db.userDetails, "ID", "fullName");
+                return View();
+            } else
+            {
+                return View("NotAuthenticated");
+            }
+            
         }
 
         // POST: recognitions/Create
@@ -64,6 +70,8 @@ namespace CentricProject.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.recognizer = new SelectList(db.userDetails, "ID", "fullName", recognition.recognizer);
+            ViewBag.recognizee = new SelectList(db.userDetails, "ID", "fullName", recognition.recognizee);
             return View(recognition);
         }
 
@@ -79,6 +87,8 @@ namespace CentricProject.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.recognizer = new SelectList(db.userDetails, "ID", "fullName", recognition.recognizer);
+            ViewBag.recognizee = new SelectList(db.userDetails, "ID", "fullName", recognition.recognizee);
             return View(recognition);
         }
 
@@ -95,6 +105,8 @@ namespace CentricProject.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.recognizer = new SelectList(db.userDetails, "ID", "fullName", recognition.recognizer);
+            ViewBag.recognizee = new SelectList(db.userDetails, "ID", "fullName", recognition.recognizee);
             return View(recognition);
         }
 

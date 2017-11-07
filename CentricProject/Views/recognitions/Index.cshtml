@@ -1,14 +1,15 @@
 ﻿@model IEnumerable<CentricProject.Models.recognition>
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Recognitions!</h2>
+<h2>View Recognitions!</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-striped table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.recognizer)
@@ -31,11 +32,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-         
-            @Html.DisplayFor(modelItem => item.recognizer)
+            @Html.DisplayFor(modelItem => item.Giver.fullName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.recognizee)
+            @Html.DisplayFor(modelItem => item.userDetails.fullName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.recognitionCoreValue)
