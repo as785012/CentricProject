@@ -49,6 +49,15 @@ namespace CentricProject.Controllers
             {
                 return HttpNotFound();
             }
+            var recognition = db.recognition.Include(r => r.Giver).Include(r => r.userDetails);
+
+            //var userDetailsWithRecognitons = db.userDetails.Include(a => a.ID).Include(recognition);
+
+            //For the ones that the user has given
+            //Get user id of the details page that you're on.
+            //Query for the recognitions that contain the user id like: "select * from recognitions where recognizer = userDetails.ID"
+            
+
             return View(userDetails);
         }
 

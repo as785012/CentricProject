@@ -7,12 +7,14 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CentricProject.Models;
+using CentricProject.Models.DAL;
 
 namespace CentricProject.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
+       
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -64,6 +66,7 @@ namespace CentricProject.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+
            
 
             var model = new IndexViewModel
