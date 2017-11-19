@@ -1,0 +1,20 @@
+﻿@model CentricProject.Models.recognition
+
+@{
+    ViewBag.Title = "Email";
+}
+
+<h2>Email test results</h2>
+@{
+
+    if (TempData["mailError"] != null && TempData["mailError"] != "")
+    {
+        <h3>The following error occured while trying to send the email message: @TempData["mailError"].ToString()</h3>
+    }
+    else
+    {
+        <h3>Email sent</h3>
+    }
+}
+
+

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using CentricProject.Models;
 using CentricProject.Models.DAL;
 using Microsoft.AspNet.Identity;
+using System.Net.Mail;
 
 namespace CentricProject.Controllers
 {
@@ -73,6 +74,7 @@ namespace CentricProject.Controllers
             ViewBag.recognizer = new SelectList(db.userDetails, "ID", "fullName", recognition.recognizer);
             ViewBag.recognizee = new SelectList(db.userDetails, "ID", "fullName", recognition.recognizee);
             return View(recognition);
+            emailRecognition(recognition);
         }
 
         // GET: recognitions/Edit/5
@@ -143,6 +145,32 @@ namespace CentricProject.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult emailRecognition(object recognition)
+        {
+            //TODO: Add email of the recognizee into the method so it sends an email to the correct person
+
+            SmtpClient smtpClient = new SmtpClient();
+            smtpClient.Credentials = new NetworkCredential("mis4200team16@gmail.com", "Testing!23");
+            MailMessage mailMessage = new MailMessage();
+            MailAddress from = new MailAddress("mis4200team16@gmail.com", "Recognition Dev Team");
+            mailMessage.From = from;
+            mailMessage.To.Add("as785012@ohio.edu");
+            mailMessage.Subject = "MVC Email Test";
+            mailMessage.Body = "Body of the message, eventually this will display the description of the recognition and the core value";
+            mailMessage.Body += "call a method that gets the information above";
+            try 
+            {
+                smtpClient.Send(mailMessage);
+                TempData["mailError"] = "";
+            }
+            catch (Exception e)
+            {
+                TempData["mailError"] = e.Message;
+                
+            }
+            return View("Email");
         }
     }
 }
