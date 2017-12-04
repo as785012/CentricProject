@@ -1,0 +1,48 @@
+﻿@model IEnumerable<CentricProject.Models.recognition>
+@{
+    ViewBag.Title = "userDetailsRecognitions";
+}
+
+<div>
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.recognizer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.recognizee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.recognitionCoreValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dateTime)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Giver.fullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.userDetails.fullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.recognitionCoreValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dateTime)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+

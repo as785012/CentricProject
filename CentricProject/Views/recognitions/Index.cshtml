@@ -47,9 +47,7 @@
             @Html.DisplayFor(modelItem => item.dateTime)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.recognitionID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.recognitionID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.recognitionID })
+            @Html.ActionLink("Details", "Details", new { id=item.recognitionID }) 
         </td>
     </tr>
 }
