@@ -269,13 +269,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\userDetails\Create.cshtml" />
-    <Content Include="Views\userDetails\Delete.cshtml" />
-    <Content Include="Views\userDetails\Details.cshtml" />
-    <Content Include="Views\userDetails\Edit.cshtml" />
-    <Content Include="Views\userDetails\Index.cshtml" />
-    <Content Include="Views\userDetails\DuplicateUser.cshtml" />
-    <Content Include="Views\userDetails\NotAuthenticated.cshtml" />
     <Content Include="Views\recognitions\Create.cshtml" />
     <Content Include="Views\recognitions\Delete.cshtml" />
     <Content Include="Views\recognitions\Details.cshtml" />
@@ -283,7 +276,11 @@
     <Content Include="Views\recognitions\Index.cshtml" />
     <Content Include="Views\recognitions\NotAuthenticated.cshtml" />
     <Content Include="Views\recognitions\Email.cshtml" />
-    <Content Include="Views\userDetails\userDetailsRecognitions.cshtml" />
+    <Content Include="Views\userDetails\Create.cshtml" />
+    <Content Include="Views\userDetails\Delete.cshtml" />
+    <Content Include="Views\userDetails\Details.cshtml" />
+    <Content Include="Views\userDetails\Edit.cshtml" />
+    <Content Include="Views\userDetails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
