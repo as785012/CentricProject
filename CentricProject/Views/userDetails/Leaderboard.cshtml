@@ -1,0 +1,44 @@
+﻿
+
+@{
+    ViewBag.Title = "Leaderboard";
+}
+
+<h2>Leaderboard</h2>
+<table class="table">
+    <tr>
+       
+        <th>
+            Name
+        </th>
+        <th>
+           Business Unit
+        </th>
+        <th>
+            Number of years with Centric
+        </th>
+        <th>
+            Star Count
+        </th>
+    </tr>
+
+    @foreach (var item in ViewBag.UserList)
+    {
+        <tr>
+            <td>
+                @item.fullName
+            </td>
+            <td>
+                @item.office
+            </td>
+            <td>
+                @item.yearsWithCentric
+            </td>
+            <td>
+                <span class="glyphicon glyphicon-star"></span> x @item.totalStars
+            </td>
+        </tr>
+    }
+
+</table>
+

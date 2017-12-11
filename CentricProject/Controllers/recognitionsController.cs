@@ -9,10 +9,6 @@ using System.Web.Mvc;
 using CentricProject.Models;
 using CentricProject.Models.DAL;
 using Microsoft.AspNet.Identity;
-using System.Net.Mail;
-using System.Data.SqlClient;
-using System.Data.Entity.Infrastructure;
-
 
 namespace CentricProject.Controllers
 {
@@ -24,6 +20,7 @@ namespace CentricProject.Controllers
         public ActionResult Index()
         {
             var recognition = db.recognition.Include(r => r.Giver).Include(r => r.userDetails);
+
             return View(recognition.ToList());
         }
 
@@ -45,24 +42,17 @@ namespace CentricProject.Controllers
         // GET: recognitions/Create
         public ActionResult Create()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.recognizer = new SelectList(db.userDetails, "ID", "fullName");
-                ViewBag.recognizee = new SelectList(db.userDetails, "ID", "fullName");
-                return View();
-            } else
-            {
-                return View("NotAuthenticated");
-            }
-            
+            ViewBag.recognizer = new SelectList(db.userDetails, "ID", "fullName");
+            ViewBag.recognizee = new SelectList(db.userDetails, "ID", "fullName");
+            return View();
         }
 
         // POST: recognitions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "recognitionID,recognizer,recognizee,recognitionCoreValue,description,dateTime")] recognition recognition)
+        public ActionResult Create([Bind(Include = "recognitionID,recognizer,recognizee,recognitionCoreValue,description, starPoints, dateTime")] recognition recognition)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +67,6 @@ namespace CentricProject.Controllers
             ViewBag.recognizer = new SelectList(db.userDetails, "ID", "fullName", recognition.recognizer);
             ViewBag.recognizee = new SelectList(db.userDetails, "ID", "fullName", recognition.recognizee);
             return View(recognition);
-            emailRecognition(recognition);
         }
 
         // GET: recognitions/Edit/5
@@ -99,10 +88,10 @@ namespace CentricProject.Controllers
 
         // POST: recognitions/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "recognitionID,recognizer,recognizee,recognitionCoreValue,description,dateTime")] recognition recognition)
+        public ActionResult Edit([Bind(Include = "recognitionID,recognizer,recognizee,recognitionCoreValue,description, starPoints, dateTime")] recognition recognition)
         {
             if (ModelState.IsValid)
             {
@@ -150,32 +139,6 @@ namespace CentricProject.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult emailRecognition(object recognition)
-        {
-            //TODO: Add email of the recognizee into the method so it sends an email to the correct person
-
-            SmtpClient smtpClient = new SmtpClient();
-            smtpClient.Credentials = new NetworkCredential("mis4200team16@gmail.com", "Testing!23");
-            MailMessage mailMessage = new MailMessage();
-            MailAddress from = new MailAddress("mis4200team16@gmail.com", "Recognition Dev Team");
-            mailMessage.From = from;
-            mailMessage.To.Add("as785012@ohio.edu");
-            mailMessage.Subject = "MVC Email Test";
-            mailMessage.Body = "Body of the message, eventually this will display the description of the recognition and the core value";
-            mailMessage.Body += "call a method that gets the information above";
-            try 
-            {
-                smtpClient.Send(mailMessage);
-                TempData["mailError"] = "";
-            }
-            catch (Exception e)
-            {
-                TempData["mailError"] = e.Message;
-                
-            }
-            return View("Email");
-        }
-
         public IEnumerable<recognition> getAllRecognitions()
         {
             var recognitions = db.recognition;
@@ -184,5 +147,7 @@ namespace CentricProject.Controllers
 
             return listOfAllRecognitions;
         }
+
+        
     }
 }

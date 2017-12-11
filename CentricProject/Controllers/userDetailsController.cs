@@ -75,7 +75,6 @@ namespace CentricProject.Controllers
                
                 ViewBag.MyList = userRecognitionList;
                 ViewBag.MyListRec = userRecognitionListReceiver;
-                
             }
             return View(userDetails);
         }
@@ -186,6 +185,57 @@ namespace CentricProject.Controllers
             string fullName = userDetails.fullName;
             return fullName;
         }
-        
+
+        public ActionResult Leaderboard()
+        {
+           
+            List<userDetails> users = getAllUsersList();
+            
+
+            foreach (var item in users)
+            {
+                ViewBag.ID = item.ID;
+                ViewBag.fullName = item.fullName;
+                ViewBag.businessUnit = item.office;
+                ViewBag.years = item.yearsWithCentric;
+                int starQuantity = getTotalStarCount(item.ID);
+                item.totalStars = starQuantity;
+                ViewBag.starQuantity = item.totalStars;
+                
+                 
+            }
+
+            users.OrderByDescending(u => u.totalStars);
+            ViewBag.UserList = users;
+
+
+            return View(ViewBag.UserList);
+
+        }
+
+        public int getTotalStarCount(Guid? id)
+        {
+            int totalCount = 0;
+            recognitionsController leaderboard = new recognitionsController();
+            IEnumerable<recognition> userRecognitionList = leaderboard.getAllRecognitions();
+            userRecognitionList = userRecognitionList.Where(u => u.recognizee.Equals(id));
+
+            foreach (var item in userRecognitionList)
+            {
+                totalCount += item.starPoints;
+            }
+
+            return totalCount;
+        }
+
+        public List<userDetails> getAllUsersList()
+        {
+            var usersForList = db.userDetails;
+
+            List<userDetails> listOfUsers = usersForList.ToList();
+
+            return listOfUsers;
+        }
+
     }
 }

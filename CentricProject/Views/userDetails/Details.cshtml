@@ -5,7 +5,7 @@
     
 }
 
-<h2>User Details</h2>
+<h2>Details</h2>
 
 <div>
     <h4>User Profile!</h4>
@@ -116,16 +116,16 @@
             {
                     <tr>
                         <td>
-                            @ViewBag.recognizer
+                            @item.Giver.fullName
                         </td>
                         <td>
-                            @ViewBag.recognizee
+                            @item.userDetails.fullName
                         </td>
                         <td>
-                            @ViewBag.coreValue
+                            @item.recognitionCoreValue
                         </td>
                         <td>
-                            @ViewBag.description
+                            @item.description
                         </td>
                         <td>
                             @ViewBag.dateTime
