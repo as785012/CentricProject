@@ -1,13 +1,17 @@
 ﻿@model CentricProject.Models.userDetails
 
+
+
 @{
     ViewBag.Title = "Details";
+    @ViewBag.MyList;
 }
+
 
 <h2>Details</h2>
 
 <div>
-    <h4>userDetails</h4>
+    <h4>User Details</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -90,5 +94,56 @@
 </p>
 
 <div>
-    @Html.Partial("userDetailsRecognitions")
+    <div class="col-lg-6">
+        <h4>Recognitions given by this user</h4>
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>
+                    Recognizer
+                </th>
+                <th>
+                    Recognizee
+                </th>
+                <th>
+                    Core Value
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Date
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in ViewBag.MyList)
+            {
+                <tr>
+                    <td>
+                        @(((ViewBag.item as ICollection<recognition>).Giver)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.userDetails.fullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.recognitionCoreValue)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dateTime)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.recognitionID })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+
+    <div class="col-lg-6">
+        <h4>Recognitions recieved by this user</h4>
+    </div>
 </div>

@@ -49,6 +49,18 @@ namespace CentricProject.Controllers
             {
                 return HttpNotFound();
             }
+
+            recognitionsController userRecognitions = new recognitionsController();
+            IEnumerable<recognition> userRecognitionList = userRecognitions.getAllRecognitions();
+            userRecognitionList = userRecognitionList.Where(u => u.Giver.Equals(id));
+            if (userRecognitionList != null)
+            {
+                var listPassing = userRecognitionList.ToList();
+                ViewData["data"] = listPassing;
+                ViewBag.MyList = listPassing;
+                return View(listPassing);
+            }
+            
             return View(userDetails);
         }
 
@@ -178,5 +190,7 @@ namespace CentricProject.Controllers
             }
             base.Dispose(disposing);
         }
+
+       
     }
 }

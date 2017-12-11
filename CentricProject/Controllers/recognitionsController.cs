@@ -10,6 +10,9 @@ using CentricProject.Models;
 using CentricProject.Models.DAL;
 using Microsoft.AspNet.Identity;
 using System.Net.Mail;
+using System.Data.SqlClient;
+using System.Data.Entity.Infrastructure;
+
 
 namespace CentricProject.Controllers
 {
@@ -171,6 +174,15 @@ namespace CentricProject.Controllers
                 
             }
             return View("Email");
+        }
+
+        public IEnumerable<recognition> getAllRecognitions()
+        {
+            var recognitions = db.recognition;
+
+            IEnumerable<recognition> listOfAllRecognitions = recognitions.ToList();
+
+            return listOfAllRecognitions;
         }
     }
 }
