@@ -20,6 +20,7 @@ namespace CentricProject.Controllers
         public ActionResult Index()
         {
             var recognition = db.recognition.Include(r => r.Giver).Include(r => r.userDetails);
+
             return View(recognition.ToList());
         }
 
@@ -41,24 +42,17 @@ namespace CentricProject.Controllers
         // GET: recognitions/Create
         public ActionResult Create()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.recognizer = new SelectList(db.userDetails, "ID", "fullName");
-                ViewBag.recognizee = new SelectList(db.userDetails, "ID", "fullName");
-                return View();
-            } else
-            {
-                return View("NotAuthenticated");
-            }
-            
+            ViewBag.recognizer = new SelectList(db.userDetails, "ID", "fullName");
+            ViewBag.recognizee = new SelectList(db.userDetails, "ID", "fullName");
+            return View();
         }
 
         // POST: recognitions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "recognitionID,recognizer,recognizee,recognitionCoreValue,description,dateTime")] recognition recognition)
+        public ActionResult Create([Bind(Include = "recognitionID,recognizer,recognizee,recognitionCoreValue,description, starPoints, dateTime")] recognition recognition)
         {
             if (ModelState.IsValid)
             {
@@ -94,10 +88,10 @@ namespace CentricProject.Controllers
 
         // POST: recognitions/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "recognitionID,recognizer,recognizee,recognitionCoreValue,description,dateTime")] recognition recognition)
+        public ActionResult Edit([Bind(Include = "recognitionID,recognizer,recognizee,recognitionCoreValue,description, starPoints, dateTime")] recognition recognition)
         {
             if (ModelState.IsValid)
             {
@@ -144,5 +138,16 @@ namespace CentricProject.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public IEnumerable<recognition> getAllRecognitions()
+        {
+            var recognitions = db.recognition;
+
+            IEnumerable<recognition> listOfAllRecognitions = recognitions.ToList();
+
+            return listOfAllRecognitions;
+        }
+
+        
     }
 }

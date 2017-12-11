@@ -24,16 +24,26 @@ namespace CentricProject.Models
         [Display(Name = "Person recieving the recognition")]
         public Guid recognizee { get; set; }
 
+        [Required]
         [Display(Name = "Core value recognized")]
         public coreValue recognitionCoreValue { get; set; }
 
         public enum coreValue
         {
+            [Display(Name ="Excellence in delivery")]
             Excellence = 1,
+            [Display(Name = "Embraced integrity and openness")]
             Integrity = 2,
+            [Display(Name = "Practiced responsible stewardship")]
             Stewardship = 3,
+            [Display(Name = "Strived to innovate")]
             Innovate = 4,
-            Balance = 5
+            [Display(Name = "Ignited passion for the greater good")]
+            Passion = 5,
+            [Display(Name = "Living a balanced life")]
+            Balance = 6,
+            [Display(Name = "Invested in an exceptional culture")]
+            Culture = 7
         }
 
         [Required]
@@ -41,9 +51,14 @@ namespace CentricProject.Models
         public String description { get; set; }
 
         [Required]
+        [Display(Name = "Stars")]
+        public int starPoints { get; set; }
+
+
+        [Required]
         [Display(Name = "Date")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:mm/dd/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime dateTime { get; set; }
 
         [ForeignKey("recognizee")]

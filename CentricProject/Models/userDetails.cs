@@ -45,5 +45,10 @@ namespace CentricProject.Models
 
         public string fullName { get { return lastName + ", " + firstName; } }
 
+        [Display(Name = "Total Stars")]
+        public int totalStars { get; set; }
+
+        public IEnumerable<recognition> recognitionsForUsers { get; set; }
+
     }
 }

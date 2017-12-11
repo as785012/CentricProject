@@ -19,7 +19,6 @@ namespace CentricProject.Controllers
         // GET: userDetails
         public ActionResult Index(string searchString)
         {
-            
             if (User.Identity.IsAuthenticated)
             {
                 var testUsers = from u in db.userDetails select u;
@@ -34,7 +33,6 @@ namespace CentricProject.Controllers
             {
                 return View("NotAuthenticated");
             }
-            
         }
 
         // GET: userDetails/Details/5
@@ -49,22 +47,50 @@ namespace CentricProject.Controllers
             {
                 return HttpNotFound();
             }
+            recognitionsController userRecognitions = new recognitionsController();
+            IEnumerable<recognition> userRecognitionList = userRecognitions.getAllRecognitions();
+            userRecognitionList = userRecognitionList.Where(u => u.recognizer.Equals(id));
+
+            IEnumerable<recognition> userRecognitionListReceiver = userRecognitions.getAllRecognitions();
+            userRecognitionListReceiver = userRecognitionListReceiver.Where(r => r.recognizee.Equals(id));
+            if (userRecognitionList != null || userRecognitionListReceiver != null)
+            {
+                foreach (var item in userRecognitionList)
+                {
+                    ViewBag.recognizer = getFullName(item.recognizer);
+                    ViewBag.recognizee = getFullName(item.recognizee);
+                    ViewBag.coreValue = item.recognitionCoreValue;
+                    ViewBag.description = item.description;
+                    ViewBag.dateTime = item.dateTime;
+                }
+
+                foreach(var item in userRecognitionListReceiver)
+                {
+                    ViewBag.recognizerRec = getFullName(item.recognizer);
+                    ViewBag.recognizeeRec = getFullName(item.recognizee);
+                    ViewBag.coreValueRec = item.recognitionCoreValue;
+                    ViewBag.descriptionRec = item.description;
+                    ViewBag.dateTimeRec = item.dateTime;
+                }
+               
+                ViewBag.MyList = userRecognitionList;
+                ViewBag.MyListRec = userRecognitionListReceiver;
+            }
             return View(userDetails);
         }
 
         // GET: userDetails/Create
         public ActionResult Create()
         {
-            
             return View();
         }
 
         // POST: userDetails/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,email,firstName,lastName,phoneNumber,office,currentRole,anniversary, yearsWithCentric,photo")] userDetails userDetails)
+        public ActionResult Create([Bind(Include = "ID,email,firstName,lastName,phoneNumber,office,currentRole,anniversary,yearsWithCentric,photo")] userDetails userDetails)
         {
             if (ModelState.IsValid)
             {
@@ -79,11 +105,9 @@ namespace CentricProject.Controllers
                 }
                 catch (Exception)
                 {
-                    return View("DuplicateUser");               
+                    return View("DuplicateUser");
                 }
-                
-                
-              
+
             }
 
             return View(userDetails);
@@ -101,32 +125,18 @@ namespace CentricProject.Controllers
             {
                 return HttpNotFound();
             }
-            Guid memberID;
-            Guid.TryParse(User.Identity.GetUserId(), out memberID);
-            if (userDetails.ID == memberID)
-            {
-                return View(userDetails);
-            }
-            else
-            {
-                return View("NotAuthenticated");
-            }
-
-            
+            return View(userDetails);
         }
 
         // POST: userDetails/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,email,firstName,lastName,phoneNumber,office,currentRole,anniversary,photo")] userDetails userDetails)
+        public ActionResult Edit([Bind(Include = "ID,email,firstName,lastName,phoneNumber,office,currentRole,anniversary,yearsWithCentric,photo")] userDetails userDetails)
         {
             if (ModelState.IsValid)
             {
-               
-
-
                 db.Entry(userDetails).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -146,17 +156,7 @@ namespace CentricProject.Controllers
             {
                 return HttpNotFound();
             }
-            Guid memberID;
-            Guid.TryParse(User.Identity.GetUserId(), out memberID);
-            if (userDetails.ID == memberID)
-            {
-                return View(userDetails);
-            }
-            else
-            {
-                return View("NotAuthenticated");
-            }
-            
+            return View(userDetails);
         }
 
         // POST: userDetails/Delete/5
@@ -178,5 +178,64 @@ namespace CentricProject.Controllers
             }
             base.Dispose(disposing);
         }
+
+        private string getFullName(Guid? id)
+        {
+            userDetails userDetails = db.userDetails.Find(id);
+            string fullName = userDetails.fullName;
+            return fullName;
+        }
+
+        public ActionResult Leaderboard()
+        {
+           
+            List<userDetails> users = getAllUsersList();
+            
+
+            foreach (var item in users)
+            {
+                ViewBag.ID = item.ID;
+                ViewBag.fullName = item.fullName;
+                ViewBag.businessUnit = item.office;
+                ViewBag.years = item.yearsWithCentric;
+                int starQuantity = getTotalStarCount(item.ID);
+                item.totalStars = starQuantity;
+                ViewBag.starQuantity = item.totalStars;
+                
+                 
+            }
+
+            users.OrderByDescending(u => u.totalStars);
+            ViewBag.UserList = users;
+
+
+            return View(ViewBag.UserList);
+
+        }
+
+        public int getTotalStarCount(Guid? id)
+        {
+            int totalCount = 0;
+            recognitionsController leaderboard = new recognitionsController();
+            IEnumerable<recognition> userRecognitionList = leaderboard.getAllRecognitions();
+            userRecognitionList = userRecognitionList.Where(u => u.recognizee.Equals(id));
+
+            foreach (var item in userRecognitionList)
+            {
+                totalCount += item.starPoints;
+            }
+
+            return totalCount;
+        }
+
+        public List<userDetails> getAllUsersList()
+        {
+            var usersForList = db.userDetails;
+
+            List<userDetails> listOfUsers = usersForList.ToList();
+
+            return listOfUsers;
+        }
+
     }
 }

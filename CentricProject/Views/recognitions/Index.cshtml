@@ -4,12 +4,12 @@
     ViewBag.Title = "Index";
 }
 
-<h2>View Recognitions!</h2>
+<h2>View Recognitions</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table table-striped table-hover">
+<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.recognizer)
@@ -22,6 +22,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.starPoints)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.dateTime)
@@ -44,12 +47,13 @@
             @Html.DisplayFor(modelItem => item.description)
         </td>
         <td>
+            <span class="glyphicon glyphicon-star"></span> x @Html.DisplayFor(modelItem => item.starPoints) 
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.dateTime)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.recognitionID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.recognitionID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.recognitionID })
+            @Html.ActionLink("Details", "Details", new { id=item.recognitionID }) 
         </td>
     </tr>
 }

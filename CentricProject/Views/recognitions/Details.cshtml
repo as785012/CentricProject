@@ -7,11 +7,10 @@
 <h2>Details</h2>
 
 <div>
-    <h4>recognition</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.recognizer)
+            @Html.DisplayNameFor(model => model.Giver.fullName)
         </dt>
 
         <dd>
@@ -19,7 +18,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.recognizee)
+            @Html.DisplayNameFor(model => model.userDetails.fullName)
         </dt>
 
         <dd>
@@ -41,7 +40,12 @@
         <dd>
             @Html.DisplayFor(model => model.description)
         </dd>
-
+        <dt>
+            @Html.DisplayNameFor(model => model.starPoints)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.starPoints)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.dateTime)
         </dt>
@@ -53,6 +57,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.recognitionID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
